@@ -40,8 +40,12 @@ function displayRandomTerms() {
     const randomTerms = [];
     const usedIndices = new Set();
 
-    // Safety check if we have fewer than 10 terms
-    const count = Math.min(10, allTerms.length);
+    // Determine count based on screen width
+    const isMobile = window.innerWidth <= 768;
+    const targetCount = isMobile ? 6 : 12;
+
+    // Safety check if we have fewer than target terms
+    const count = Math.min(targetCount, allTerms.length);
 
     while (randomTerms.length < count) {
         const randomIndex = Math.floor(Math.random() * allTerms.length);

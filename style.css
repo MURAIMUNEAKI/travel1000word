@@ -81,16 +81,17 @@ h1 {
     width: 100%;
     padding: 15px 25px;
     border-radius: 50px;
-    border: 2px solid #e0e0e0;
+    border: 3px solid #0056b3;
     font-size: 1.1rem;
     transition: all 0.3s ease;
     outline: none;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 10px rgba(0, 86, 179, 0.2);
 }
 
 #searchInput:focus {
-    border-color: var(--accent-color);
-    box-shadow: 0 0 15px rgba(0, 86, 179, 0.2);
+    border-color: #004494;
+    box-shadow: 0 0 20px rgba(0, 86, 179, 0.4);
 }
 
 #searchBtn {
