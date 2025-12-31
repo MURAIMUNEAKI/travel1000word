@@ -1,0 +1,329 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --background-color: #f0f2f5;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --accent-color: #0056b3;
+    --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+}
+
+body {
+    background: var(--gradient-bg);
+    min-height: 100vh;
+    color: var(--text-color);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 90vh;
+}
+
+header {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(45deg, #2b5876, #4e4376);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+    font-weight: 800;
+}
+
+.search-section {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.search-input-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 15px 25px;
+    border-radius: 50px;
+    border: 2px solid #e0e0e0;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    outline: none;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+#searchInput:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(0, 86, 179, 0.2);
+}
+
+#searchBtn {
+    padding: 15px 40px;
+    border-radius: 50px;
+    border: none;
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#searchBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 91, 187, 0.3);
+}
+
+#searchBtn:active {
+    transform: translateY(1px);
+}
+
+.content-area {
+    padding: 30px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+#resultsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.word-card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #1a237e;
+    position: relative;
+    overflow: hidden;
+}
+
+.word-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(to bottom, #667eea, #764ba2);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.word-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.word-card:hover::before {
+    opacity: 1;
+}
+
+.word-term {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 3px;
+}
+
+.word-reading {
+    font-size: 0.8rem;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+}
+
+.word-category-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    background: #e8f0fe;
+    color: #1967d2;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 700px;
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    transform: translateY(30px);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background: #f1f3f4;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s;
+    color: #5f6368;
+}
+
+.close-btn:hover {
+    background: #e0e0e0;
+}
+
+.modal-header {
+    margin-bottom: 25px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 20px;
+}
+
+.modal-term {
+    font-size: 2rem;
+    color: #2c3e50;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.modal-reading {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+}
+
+.modal-category {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 6px 15px;
+    background: linear-gradient(45deg, #11998e, #38ef7d);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.modal-body {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #4a4a4a;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .search-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-input-wrapper {
+        width: 100%;
+    }
+
+    #searchBtn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .word-card {
+        padding: 20px;
+    }
+
+    .modal-content {
+        padding: 30px 20px;
+        width: 95%;
+    }
+
+    .modal-term {
+        font-size: 1.6rem;
+    }
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅行業界 用語集1000</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Fallback for FontAwesome if needed, but we use SVG */
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>旅行業界 用語集1000</h1>
+            <div class="search-section">
+                <div class="search-input-wrapper">
+                    <input type="text" id="searchInput" placeholder="キーワード入力（例：PEX運賃、イグジットロウ）">
+                </div>
+                <button id="searchBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    検索
+                </button>
+            </div>
+        </header>
+
+        <section class="content-area">
+            <div id="resultsGrid">
+                <!-- Cards will be injected here -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="close-btn">&times;</div>
+            <div class="modal-header">
+                <div class="modal-term" id="modalTerm">用語</div>
+                <div class="modal-reading" id="modalReading">よみ</div>
+                <span class="modal-category" id="modalCategory">カテゴリ</span>
+            </div>
+            <div class="modal-body">
+                <p id="modalMeaning">ここに意味が表示されます。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Data First -->
+    <script src="data/data.js"></script>
+    <!-- Load Logic -->
+    <script src="script.js"></script>
+</body>
+
+</html>
